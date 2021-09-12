@@ -5,3 +5,4 @@ Laravel - Vue test
 
 - Create database and copy `.env.example` and update the `DB_DATABASE`, `DB_PASSWORD` and `DB_USERNAME` according to your setup.
 - Run `make setup`
+    - This will seed the database you given.
