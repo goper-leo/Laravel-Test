@@ -1,9 +1,14 @@
 setup:
 	composer install
 	yarn
+	cp .env.example .env
 	php artisan key:generate
 	make authorize
-	php artisan migrate --seed
+
+run:
+	php artisan migrate:fresh --seed
+	yarn dev
+	php artisan serve
 
 authorize:
 	sudo chmod -R 777 ./storage/
