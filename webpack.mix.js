@@ -29,3 +29,5 @@ mix.webpackConfig({
         }
     }
 });
+
+mix.browserSync("http://localhost:3000/");
