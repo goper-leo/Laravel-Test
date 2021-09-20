@@ -1,6 +1,6 @@
 <template>
     <div class="text-app-gray">
-        <nav class="bg-app-red mb-32">
+        <nav class="bg-app-red sm:mb-32 mb-8">
             <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
                 <div class="relative flex items-center justify-center text-white h-16 uppercase">
                     Calculator
@@ -8,8 +8,8 @@
             </div>
         </nav>
         <div class="justify-center flex">
-            <div class="grid grid-cols-3 form-container py-7 px-14 justify-center content-center text-center">
-                <div class="col-start-2">
+            <div class="grid grid-cols-3 mx-4 form-container py-4 px-8 sm:py-7 sm:px-14 justify-center content-center text-center">
+                <div class="sm:col-start-2 sm:col-span-1 col-start-1 col-end-4">
                     <div>Enter the numbers</div>
                     <div class="mt-4">
                         <t-input v-model="form.first_addend" 
@@ -21,13 +21,17 @@
                             placeholder="number 2"
                             type="number"/>
                     </div>
+                    
                     <div class="mt-4">
                         <t-button @click="submit" 
-                            class="w-full">Sum</t-button>
+                            :disabled="form.isBusy"
+                            class="w-full">
+                            Sum
+                        </t-button>
                     </div>
                 </div>
-                <div class="separator col-start-1 col-end-4 mt-8 flex content-center my-6"></div>
-                <div class="col-start-2">
+                <div class="separator col-start-1 col-end-4 mt-8 flex content-center my-8 sm:my-6"></div>
+                <div class="sm:col-start-2 col-start-1 col-end-4 sm:col-end-2">
                     <div>Results</div>
                     <div class="mt-4">
                         <t-input v-model="sum" 
@@ -55,7 +59,6 @@
                                 </tbody>
                             </template>
                         </t-table>
-                    </div>
                 </div>
             </div>
         </div>
@@ -108,9 +111,15 @@ export default {
         async submit() {
             this.form.isBusy = true
             const { data: { sum } } = await axios.post(`/api/calculate`, this.form)
-            this.form.isBusy = false 
-            this.sum = sum
-            this.fetch()
+                .catch((err) => {
+                    console.log('err', err);
+                })
+                .finally(() => {
+                    this.sum = sum
+                    this.form.isBusy = false
+                    this.fetch() 
+                })
+            
         }
     },
 
