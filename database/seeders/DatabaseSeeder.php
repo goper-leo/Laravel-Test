@@ -14,6 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::unprepared(file_get_contents(__dir__ . '/../dump/searchable_list.sql'));
+        // DB::unprepared(file_get_contents(__dir__ . '/../dump/searchable_list.sql'));
     }
 }

@@ -12,7 +12,8 @@ class ValidationError extends Error {
             window.app.$notify.error(this.parseError(message, errors))
         
         if (!Object.prototype.hasOwnProperty.call(errors, "email") || !Object.prototype.hasOwnProperty.call(errors, "password")) {
-            window.app.$notify.error(this.parseError(message, errors))
+            // window.app.$notify.error(this.parseError(message, errors))
+            alert(this.parseError(message, errors))
         }
     }
 

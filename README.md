@@ -5,8 +5,8 @@ Laravel - Vue test
 After cloning the project.
 
 - Run `make setup` on project root folder.
-- Create database and update the `DB_DATABASE`, `DB_PASSWORD` and `DB_USERNAME` according to your setup.
-- Finally run `make run` (***This will seed the database you've given.***). If you cannot run `make`
+- Create database and update the `DB_DATABASE`, `DB_PASSWORD` and `DB_USERNAME` on `.env` file according to your setup.
+- Finally run `make run`. If you cannot run `make`
 just follow this steps.
     - Run `composer install`
     - Run `yarn`
