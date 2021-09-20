@@ -2151,6 +2151,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2210,7 +2213,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var _yield$axios$post, sum;
+        var _yield$axios$post$cat, sum;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
@@ -2218,17 +2221,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this2.form.isBusy = true;
                 _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/api/calculate", _this2.form);
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/api/calculate", _this2.form)["catch"](function (err) {
+                  console.log('err', err);
+                })["finally"](function () {
+                  _this2.sum = sum;
+                  _this2.form.isBusy = false;
+
+                  _this2.fetch();
+                });
 
               case 3:
-                _yield$axios$post = _context2.sent;
-                sum = _yield$axios$post.data.sum;
-                _this2.form.isBusy = false;
-                _this2.sum = sum;
+                _yield$axios$post$cat = _context2.sent;
+                sum = _yield$axios$post$cat.data.sum;
 
-                _this2.fetch();
-
-              case 8:
+              case 5:
               case "end":
                 return _context2.stop();
             }
@@ -2622,6 +2628,7 @@ var ValidationError = /*#__PURE__*/function (_Error) {
     _this.name = 'ValidationError';
     _this.status = 422;
     _this.fields = Object.assign({}, Object.keys(errors));
+    _this.message = _this.parseError(message, errors);
     if (window.location.pathname == '/reset-password') window.app.$notify.error(_this.parseError(message, errors));
 
     if (!Object.prototype.hasOwnProperty.call(errors, "email") || !Object.prototype.hasOwnProperty.call(errors, "password")) {
@@ -33260,88 +33267,108 @@ var render = function() {
         "div",
         {
           staticClass:
-            "grid grid-cols-3 form-container py-7 px-14 justify-center content-center text-center"
+            "grid grid-cols-3 mx-4 form-container py-4 px-8 sm:py-7 sm:px-14 justify-center content-center text-center"
         },
         [
-          _c("div", { staticClass: "col-start-2" }, [
-            _c("div", [_vm._v("Enter the numbers")]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "mt-4" },
-              [
-                _c("t-input", {
-                  attrs: { placeholder: "number 1", type: "number" },
-                  model: {
-                    value: _vm.form.first_addend,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "first_addend", $$v)
+          _c(
+            "div",
+            {
+              staticClass: "sm:col-start-2 sm:col-span-1 col-start-1 col-end-4"
+            },
+            [
+              _c("div", [_vm._v("Enter the numbers")]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "mt-4" },
+                [
+                  _c("t-input", {
+                    attrs: { placeholder: "number 1", type: "number" },
+                    model: {
+                      value: _vm.form.first_addend,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "first_addend", $$v)
+                      },
+                      expression: "form.first_addend"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "mt-2" },
+                [
+                  _c("t-input", {
+                    attrs: { placeholder: "number 2", type: "number" },
+                    model: {
+                      value: _vm.form.second_addend,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "second_addend", $$v)
+                      },
+                      expression: "form.second_addend"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "mt-4" },
+                [
+                  _c(
+                    "t-button",
+                    {
+                      staticClass: "w-full",
+                      attrs: { disabled: _vm.form.isBusy },
+                      on: { click: _vm.submit }
                     },
-                    expression: "form.first_addend"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "mt-2" },
-              [
-                _c("t-input", {
-                  attrs: { placeholder: "number 2", type: "number" },
-                  model: {
-                    value: _vm.form.second_addend,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "second_addend", $$v)
-                    },
-                    expression: "form.second_addend"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "mt-4" },
-              [
-                _c(
-                  "t-button",
-                  { staticClass: "w-full", on: { click: _vm.submit } },
-                  [_vm._v("Sum")]
-                )
-              ],
-              1
-            )
-          ]),
+                    [
+                      _vm._v(
+                        "\n                        Sum\n                    "
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
+            ]
+          ),
           _vm._v(" "),
           _c("div", {
             staticClass:
-              "separator col-start-1 col-end-4 mt-8 flex content-center my-6"
+              "separator col-start-1 col-end-4 mt-8 flex content-center my-8 sm:my-6"
           }),
           _vm._v(" "),
-          _c("div", { staticClass: "col-start-2" }, [
-            _c("div", [_vm._v("Results")]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "mt-4" },
-              [
-                _c("t-input", {
-                  attrs: { readonly: true, type: "number" },
-                  model: {
-                    value: _vm.sum,
-                    callback: function($$v) {
-                      _vm.sum = $$v
-                    },
-                    expression: "sum"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
+          _c(
+            "div",
+            {
+              staticClass: "sm:col-start-2 col-start-1 col-end-4 sm:col-end-2"
+            },
+            [
+              _c("div", [_vm._v("Results")]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "mt-4" },
+                [
+                  _c("t-input", {
+                    attrs: { readonly: true, type: "number" },
+                    model: {
+                      value: _vm.sum,
+                      callback: function($$v) {
+                        _vm.sum = $$v
+                      },
+                      expression: "sum"
+                    }
+                  })
+                ],
+                1
+              )
+            ]
+          ),
           _vm._v(" "),
           _c(
             "div",
@@ -33418,7 +33445,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("nav", { staticClass: "bg-app-red mb-32" }, [
+    return _c("nav", { staticClass: "bg-app-red sm:mb-32 mb-8" }, [
       _c("div", { staticClass: "max-w-7xl mx-auto px-2 sm:px-6 lg:px-8" }, [
         _c(
           "div",

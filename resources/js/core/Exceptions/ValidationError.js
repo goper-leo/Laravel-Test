@@ -7,13 +7,14 @@ class ValidationError extends Error {
         this.name = 'ValidationError'
         this.status = 422
         this.fields = Object.assign({}, Object.keys(errors))
+        this.message = this.parseError(message, errors);
 
         if (window.location.pathname == '/reset-password')
             window.app.$notify.error(this.parseError(message, errors))
         
         if (!Object.prototype.hasOwnProperty.call(errors, "email") || !Object.prototype.hasOwnProperty.call(errors, "password")) {
             // window.app.$notify.error(this.parseError(message, errors))
-            alert(this.parseError(message, errors))
+            alert(this.parseError(message, errors));
         }
     }
 
