@@ -2,8 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CalculationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +15,8 @@ use App\Http\Controllers\Api\CategoryController;
 |
 */
 Route::namespace('Api')->group(function () {
-    Route::name('category')->get('category', [CategoryController::class, 'index']);
-    Route::name('product')->get('product', [ProductController::class, 'index']);
+    Route::prefix('calculate')->group(function () {
+        Route::name('calculate')->get('history', [CalculationController::class, 'index']);
+        Route::name('calculate')->post('', [CalculationController::class, 'store']);
+    });
 });

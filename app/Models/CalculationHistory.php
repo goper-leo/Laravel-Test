@@ -5,26 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Category extends Model
+class CalculationHistory extends Model
 {
     use HasFactory;
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
-        'name',
+        'first_addend',
+        'second_addend',
+        'sum',
     ];
 
     /**
-     * Get category products
-     * 
-     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     * Get the sum.
+     *
+     * @return float
      */
-    public function products()
+    public function getSumAttribute()
     {
-        return $this->hasMany(Product::class);
+        return $this->first_addend + $this->second_addend;
     }
 }
