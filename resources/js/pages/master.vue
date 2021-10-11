@@ -115,10 +115,10 @@ export default {
                     console.log('err', err);
                 })
                 .finally(() => {
-                    this.sum = sum
                     this.form.isBusy = false
-                    this.fetch() 
                 })
+                this.sum = sum
+                this.fetch() 
             
         }
     },
